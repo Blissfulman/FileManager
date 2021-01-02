@@ -25,7 +25,7 @@ extension Directory {
             return nil
         }
         
-        guard let directoryContentURLs = FileManagerService().getDirectoryContentURLs(in: directoryURL) else {
+        guard let directoryContentURLs = FileManagerService().getDirectoryObjectsURLs(in: directoryURL) else {
             return nil
         }
         

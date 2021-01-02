@@ -98,7 +98,13 @@ extension DirectoryViewController {
             
             navigationController?.pushViewController(selectedDirectoryVC, animated: true)
         } else {
-            print("File name: \(selectedObject.name)")
+            let openingFile = File(name: selectedObject.name,
+                                   content: fileManagerService.readFile(url: selectedObject.url))
+            
+            let selectedFileVC = FileEditorViewController()
+            selectedFileVC.file = openingFile
+            
+            navigationController?.pushViewController(selectedFileVC, animated: true)
         }
     }
 }

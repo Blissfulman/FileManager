@@ -18,7 +18,7 @@ struct FileManagerService {
         return url
     }
     
-    func getDirectoryContentURLs(in directory: URL) -> [URL]? {
+    func getDirectoryObjectsURLs(in directory: URL) -> [URL]? {
         try? FileManager.default.contentsOfDirectory(
             at: directory,
             includingPropertiesForKeys: nil,
@@ -26,23 +26,23 @@ struct FileManagerService {
         )
     }
     
+    func readFile(url: URL) -> String {
+        let filePath = url.relativePath
+        
+        guard let fileContent = FileManager.default.contents(atPath: filePath),
+              let fileContentEncoded = String(bytes: fileContent, encoding: .utf8) else {
+            return ""
+        }
+        return fileContentEncoded
+    }
+    
+    
     //    func writeFile(containing: String, withName name: String) {
     //        let filePath = (getURL()?.path)! + "/" + name
     //        let rawData: Data? = containing.data(using: .utf8)
     //        FileManager.default.createFile(atPath: filePath, contents: rawData, attributes: nil)
     //    }
-    //
-    //    func readFile(at path: String, withName name: String) {
-    //        let filePath = (getURL()?.path)! + "/" + name
-    //
-    //        guard let fileContent = FileManager.default.contents(atPath: filePath),
-    //              let fileContentEncoded = String(bytes: fileContent, encoding: .utf8) else {
-    //            return
-    //        }
-    //
-    //        print(fileContentEncoded)
-    //    }
-    //
+    
     //    func deleteFile(withName name: String) {
     //        guard let filePath = getURL()?.appendingPathComponent(name) else {
     //            return

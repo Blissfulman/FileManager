@@ -17,6 +17,8 @@
 		CEB40585259F7B1B00FBDDB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEB40583259F7B1B00FBDDB6 /* LaunchScreen.storyboard */; };
 		CED842A325A09E1500C07428 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED842A225A09E1500C07428 /* File.swift */; };
 		CED842AC25A0BBA100C07428 /* Directory+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED842AB25A0BBA100C07428 /* Directory+Extension.swift */; };
+		CED842B525A0C30C00C07428 /* FileEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED842B325A0C30C00C07428 /* FileEditorViewController.swift */; };
+		CED842B625A0C30C00C07428 /* FileEditorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CED842B425A0C30C00C07428 /* FileEditorViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		CEB40586259F7B1B00FBDDB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CED842A225A09E1500C07428 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		CED842AB25A0BBA100C07428 /* Directory+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Directory+Extension.swift"; sourceTree = "<group>"; };
+		CED842B325A0C30C00C07428 /* FileEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileEditorViewController.swift; sourceTree = "<group>"; };
+		CED842B425A0C30C00C07428 /* FileEditorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileEditorViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,8 +70,8 @@
 		CE63A57D259FB82500406FD4 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				CEB4057C259F7B1A00FBDDB6 /* DirectoryViewController.swift */,
-				CE63A53D259F8B6F00406FD4 /* DirectoryViewController.xib */,
+				CED842B125A0C2CD00C07428 /* DirectoryViewController */,
+				CED842B825A0C31500C07428 /* FileEditorViewController */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -125,6 +129,24 @@
 				CED842AB25A0BBA100C07428 /* Directory+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CED842B125A0C2CD00C07428 /* DirectoryViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CEB4057C259F7B1A00FBDDB6 /* DirectoryViewController.swift */,
+				CE63A53D259F8B6F00406FD4 /* DirectoryViewController.xib */,
+			);
+			path = DirectoryViewController;
+			sourceTree = "<group>";
+		};
+		CED842B825A0C31500C07428 /* FileEditorViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CED842B325A0C30C00C07428 /* FileEditorViewController.swift */,
+				CED842B425A0C30C00C07428 /* FileEditorViewController.xib */,
+			);
+			path = FileEditorViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,6 +209,7 @@
 				CEB40585259F7B1B00FBDDB6 /* LaunchScreen.storyboard in Resources */,
 				CEB40582259F7B1B00FBDDB6 /* Assets.xcassets in Resources */,
 				CE63A53F259F8B6F00406FD4 /* DirectoryViewController.xib in Resources */,
+				CED842B625A0C30C00C07428 /* FileEditorViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,6 +227,7 @@
 				CEB40579259F7B1A00FBDDB6 /* AppDelegate.swift in Sources */,
 				CED842AC25A0BBA100C07428 /* Directory+Extension.swift in Sources */,
 				CE63A571259FB2C900406FD4 /* FileManagerService.swift in Sources */,
+				CED842B525A0C30C00C07428 /* FileEditorViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

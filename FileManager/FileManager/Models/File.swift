@@ -9,5 +9,5 @@ import Foundation
 
 struct File {
     let name: String
-    let data: Data
+    let content: String
 }
