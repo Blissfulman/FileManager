@@ -1,0 +1,44 @@
+//
+//  Directory.swift
+//  FileManager
+//
+//  Created by User on 02.01.2021.
+//
+
+import Foundation
+
+struct Directory {
+    let name: String
+    let url: URL?
+    let objects: [DirectoryObject]
+    
+    var objectCount: Int {
+        objects.count
+    }
+}
+
+extension Directory {
+    
+    static func getDirectory(for directoryURL: URL? = nil) -> Directory? {
+                
+        guard let directoryURL = directoryURL ?? FileManagerService().getRootURL() else {
+            return nil
+        }
+        
+        guard let directoryContentURLs = FileManagerService().getDirectoryContentURLs(in: directoryURL) else {
+            return nil
+        }
+        
+        var objects = [DirectoryObject]()
+        
+        directoryContentURLs.forEach { objectURL in
+            let object = DirectoryObject(name: objectURL.lastPathComponent,
+                                         url: objectURL)
+            objects.append(object)
+        }
+        
+        return Directory(name: directoryURL.lastPathComponent,
+                         url: directoryURL,
+                         objects: objects)
+    }
+}
