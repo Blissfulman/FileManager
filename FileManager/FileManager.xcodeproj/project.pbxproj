@@ -19,6 +19,7 @@
 		CED842AC25A0BBA100C07428 /* Directory+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED842AB25A0BBA100C07428 /* Directory+Extension.swift */; };
 		CED842B525A0C30C00C07428 /* FileEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED842B325A0C30C00C07428 /* FileEditorViewController.swift */; };
 		CED842B625A0C30C00C07428 /* FileEditorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CED842B425A0C30C00C07428 /* FileEditorViewController.xib */; };
+		CED842E825A18EB300C07428 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED842E725A18EB300C07428 /* UIViewController+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		CED842AB25A0BBA100C07428 /* Directory+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Directory+Extension.swift"; sourceTree = "<group>"; };
 		CED842B325A0C30C00C07428 /* FileEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileEditorViewController.swift; sourceTree = "<group>"; };
 		CED842B425A0C30C00C07428 /* FileEditorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileEditorViewController.xib; sourceTree = "<group>"; };
+		CED842E725A18EB300C07428 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 		CED842AE25A0BBB400C07428 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				CED842E725A18EB300C07428 /* UIViewController+Extension.swift */,
 				CED842AB25A0BBA100C07428 /* Directory+Extension.swift */,
 			);
 			path = Extensions;
@@ -220,6 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CED842E825A18EB300C07428 /* UIViewController+Extension.swift in Sources */,
 				CEB4057D259F7B1A00FBDDB6 /* DirectoryViewController.swift in Sources */,
 				CED842A325A09E1500C07428 /* File.swift in Sources */,
 				CE63A579259FB76600406FD4 /* DirectoryObject.swift in Sources */,

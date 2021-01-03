@@ -9,7 +9,7 @@ import Foundation
 
 extension Directory {
     
-    mutating func sortedObjects() -> Directory {
+    func sortedObjects() -> Directory {
         var sortedObjects = [DirectoryObject]()
         
         sortedObjects.append(
@@ -28,12 +28,11 @@ extension Directory {
                          objects: sortedObjects)
     }
     
-    mutating func filteredHiddenFiles() -> Directory {
+    func filteredHiddenFiles() -> Directory {
         let filteredObjects = self.objects.filter { $0.url.lastPathComponent.first != "." }
 
         return Directory(name: self.name,
                          url: self.url,
                          objects: filteredObjects)
-        
     }
 }

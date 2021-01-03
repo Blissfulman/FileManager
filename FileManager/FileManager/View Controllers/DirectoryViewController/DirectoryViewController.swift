@@ -21,18 +21,22 @@ final class DirectoryViewController: UITableViewController {
         if directory == nil {
             directory = Directory.getDirectory()
         }
-        
-        directory = directory.sortedObjects()
-        directory = directory.filteredHiddenFiles()
+        directory = directory.sortedObjects().filteredHiddenFiles()
         
         setupUI()
     }
     
     // MARK: - Actions
     @objc private func addDirectoryButtonTapped() {
+        showAlert(type: .directory) { directoryName in
+            print(directoryName)
+        }
     }
     
     @objc private func addFileButtonTapped() {
+        showAlert(type: .file) { fileName in
+            print(fileName)
+        }
     }
     
     // MARK: - Private methods
@@ -78,6 +82,8 @@ extension DirectoryViewController {
         content.text = object.name
         
         cell.contentConfiguration = content
+        cell.accessoryType = .disclosureIndicator
+        
         return cell
     }
 }
