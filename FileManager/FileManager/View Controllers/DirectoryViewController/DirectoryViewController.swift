@@ -21,15 +21,19 @@ final class DirectoryViewController: UITableViewController {
         if directory == nil {
             directory = Directory.getDirectory()
         }
-        directory = directory.sortedObjects().filteredHiddenFiles()
-        
+        updateDirectory()
         setupUI()
     }
     
     // MARK: - Actions
     @objc private func addDirectoryButtonTapped() {
-        showAlert(type: .directory) { directoryName in
-            print(directoryName)
+        showAlert(type: .directory) { [weak self] directoryName in
+            
+            guard let url = self?.directory.url else { return }
+            
+            self?.fileManagerService.createDirectory(in: url, withName: directoryName)
+            self?.updateDirectory()
+            self?.tableView.reloadData()
         }
     }
     
@@ -58,6 +62,13 @@ final class DirectoryViewController: UITableViewController {
         )
         
         navigationItem.rightBarButtonItems = [addFileBarButton, addDirectoryBarButton]
+    }
+    
+    private func updateDirectory() {
+        guard let url = directory.url else { return }
+        
+        directory = Directory.getDirectory(for: url)
+        directory = directory.sortedObjects().filteredHiddenFiles()
     }
 }
 

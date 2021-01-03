@@ -36,6 +36,20 @@ struct FileManagerService {
         return fileContentEncoded
     }
     
+    func createDirectory(in directory: URL, withName name: String) {
+        let path = directory.path + "/" + name
+        
+        do {
+            try FileManager.default.createDirectory(
+                atPath: path,
+                withIntermediateDirectories: true,
+                attributes: nil
+            )
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+    }
     
     //    func writeFile(containing: String, withName name: String) {
     //        let filePath = (getURL()?.path)! + "/" + name
