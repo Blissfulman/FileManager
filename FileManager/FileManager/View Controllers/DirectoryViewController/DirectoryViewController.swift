@@ -38,8 +38,12 @@ final class DirectoryViewController: UITableViewController {
     }
     
     @objc private func addFileButtonTapped() {
-        showAlert(type: .file) { fileName in
-            print(fileName)
+        showAlert(type: .file) { [weak self] fileName in
+            guard let url = self?.directory.url else { return }
+            
+            self?.fileManagerService.writeFile(in: url, withName: fileName)
+            self?.updateDirectory()
+            self?.tableView.reloadData()
         }
     }
     

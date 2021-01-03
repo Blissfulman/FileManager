@@ -51,11 +51,12 @@ struct FileManagerService {
         }
     }
     
-    //    func writeFile(containing: String, withName name: String) {
-    //        let filePath = (getURL()?.path)! + "/" + name
-    //        let rawData: Data? = containing.data(using: .utf8)
-    //        FileManager.default.createFile(atPath: filePath, contents: rawData, attributes: nil)
-    //    }
+    func writeFile(in directory: URL, withName name: String, containing content: String = "Hello world!") {
+        let path = directory.path + "/" + name
+        
+        let rawData: Data? = content.data(using: .utf8)
+        FileManager.default.createFile(atPath: path, contents: rawData, attributes: nil)
+    }
     
     //    func deleteFile(withName name: String) {
     //        guard let filePath = getURL()?.appendingPathComponent(name) else {
