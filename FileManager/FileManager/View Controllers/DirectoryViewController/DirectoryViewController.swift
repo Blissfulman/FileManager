@@ -106,6 +106,19 @@ extension DirectoryViewController {
 // MARK: - TableViewDelegate
 extension DirectoryViewController {
     
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        guard let url = directory.url else { return }
+
+        let object = directory.objects[indexPath.row]
+        
+        if editingStyle == .delete {
+            fileManagerService.deleteObject(in: url, withName: object.name)
+            updateDirectory()
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let selectedObject = directory.objects[indexPath.row]

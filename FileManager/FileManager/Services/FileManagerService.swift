@@ -37,11 +37,11 @@ struct FileManagerService {
     }
     
     func createDirectory(in directory: URL, withName name: String) {
-        let path = directory.path + "/" + name
-        
+        let path = directory.appendingPathComponent(name)
+
         do {
             try FileManager.default.createDirectory(
-                atPath: path,
+                at: path,
                 withIntermediateDirectories: true,
                 attributes: nil
             )
@@ -58,18 +58,13 @@ struct FileManagerService {
         FileManager.default.createFile(atPath: path, contents: rawData, attributes: nil)
     }
     
-    //    func deleteFile(withName name: String) {
-    //        guard let filePath = getURL()?.appendingPathComponent(name) else {
-    //            return
-    //        }
-    //        try? FileManager.default.removeItem(at: filePath)
-    //    }
-    //
-    //    func renameFile(with oldName: String, to newName: String) {
-    //        guard let oldPath = getURL()?.appendingPathComponent(oldName),
-    //              let newPath = getURL()?.appendingPathComponent(newName) else {
-    //            return
-    //        }
-    //        try? FileManager.default.moveItem(at: oldPath, to: newPath)
-    //    }
+    func deleteObject(in directory: URL, withName name: String) {
+        let path = directory.appendingPathComponent(name)
+        
+        do {
+            try FileManager.default.removeItem(at: path)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }

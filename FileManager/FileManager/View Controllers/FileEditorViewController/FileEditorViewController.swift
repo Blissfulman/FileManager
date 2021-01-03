@@ -21,6 +21,7 @@ final class FileEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = file.name
         textView.text = file.content
     }
 }
