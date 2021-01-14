@@ -32,13 +32,10 @@ extension Directory {
         var objects = [DirectoryObject]()
         
         directoryContentURLs.forEach { objectURL in
-            let object = DirectoryObject(name: objectURL.lastPathComponent,
-                                         url: objectURL)
+            let object = DirectoryObject(name: objectURL.lastPathComponent, url: objectURL)
             objects.append(object)
         }
         
-        return Directory(name: directoryURL.lastPathComponent,
-                         url: directoryURL,
-                         objects: objects)
+        return Directory(name: directoryURL.lastPathComponent, url: directoryURL, objects: objects)
     }
 }

@@ -10,17 +10,24 @@ import UIKit
 final class DirectoryViewController: UITableViewController {
     
     // MARK: - Properties
-    var directory: Directory!
+    private var directory: Directory?
     
     private let fileManagerService = FileManagerService()
+    
+    // MARK: - Initializers
+    init(_ directory: Directory? = nil) {
+        self.directory = directory
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if directory == nil {
-            directory = Directory.getDirectory()
-        }
         updateDirectory()
         setupUI()
     }
@@ -29,7 +36,7 @@ final class DirectoryViewController: UITableViewController {
     @objc private func addDirectoryButtonTapped() {
         showAlert(type: .directory) { [weak self] directoryName in
             
-            guard let url = self?.directory.url else { return }
+            guard let url = self?.directory?.url else { return }
             
             self?.fileManagerService.createDirectory(in: url, withName: directoryName)
             self?.updateDirectory()
@@ -39,7 +46,7 @@ final class DirectoryViewController: UITableViewController {
     
     @objc private func addFileButtonTapped() {
         showAlert(type: .file) { [weak self] fileName in
-            guard let url = self?.directory.url else { return }
+            guard let url = self?.directory?.url else { return }
             
             self?.fileManagerService.writeFile(in: url, withName: fileName)
             self?.updateDirectory()
@@ -47,9 +54,9 @@ final class DirectoryViewController: UITableViewController {
         }
     }
     
-    // MARK: - Private methods
+    // MARK: - Setup UI
     private func setupUI() {
-        title = directory.name
+        title = directory?.name
         
         let addDirectoryBarButton = UIBarButtonItem(
             image: UIImage(named: "addDirectory"),
@@ -68,11 +75,10 @@ final class DirectoryViewController: UITableViewController {
         navigationItem.rightBarButtonItems = [addFileBarButton, addDirectoryBarButton]
     }
     
+    // MARK: - Private methods
     private func updateDirectory() {
-        guard let url = directory.url else { return }
-        
-        directory = Directory.getDirectory(for: url)
-        directory = directory.sortedObjects().filteredHiddenFiles()
+        directory = Directory.getDirectory(for: directory?.url)
+        directory = directory?.sortedObjects().filteredHiddenFiles()
     }
 }
 
@@ -80,13 +86,15 @@ final class DirectoryViewController: UITableViewController {
 extension DirectoryViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        directory.objectCount
+        directory?.objectCount ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
         var content = cell.defaultContentConfiguration()
+        
+        guard let directory = directory else { return UITableViewCell() }
         
         let object = directory.objects[indexPath.row]
         
@@ -108,6 +116,8 @@ extension DirectoryViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
+        guard let directory = directory else { return }
+        
         guard let url = directory.url else { return }
 
         let object = directory.objects[indexPath.row]
@@ -121,14 +131,15 @@ extension DirectoryViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        guard let directory = directory else { return }
+        
         let selectedObject = directory.objects[indexPath.row]
         
         // MARK: - Navigation
         if selectedObject.isDirectory {
             let openingDirectory = Directory.getDirectory(for: selectedObject.url)
             
-            let selectedDirectoryVC = DirectoryViewController()
-            selectedDirectoryVC.directory = openingDirectory
+            let selectedDirectoryVC = DirectoryViewController(openingDirectory)
             
             navigationController?.pushViewController(selectedDirectoryVC, animated: true)
         } else {
