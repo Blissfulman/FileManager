@@ -8,14 +8,14 @@
 import UIKit
 
 enum AlertType {
-    case directory
-    case file
+    case addDirectory
+    case addFile
 }
 
 extension UIViewController {
     
     func showAlert(type: AlertType, completion: @escaping (String) -> Void) {
-        let alertTitle = type == .directory ? "Directory name" : "File name"
+        let alertTitle = type == .addDirectory ? "Directory name" : "File name"
         
         let alertController = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
         

@@ -11,6 +11,9 @@
 		CE63A571259FB2C900406FD4 /* FileManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63A570259FB2C900406FD4 /* FileManagerService.swift */; };
 		CE63A574259FB74E00406FD4 /* Directory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63A573259FB74E00406FD4 /* Directory.swift */; };
 		CE63A579259FB76600406FD4 /* DirectoryObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63A578259FB76600406FD4 /* DirectoryObject.swift */; };
+		CE79CD3C25B0734E00840023 /* ImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE79CD3B25B0734E00840023 /* ImageNames.swift */; };
+		CE79CD4025B07CDF00840023 /* ObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE79CD3F25B07CDF00840023 /* ObjectType.swift */; };
+		CE79CD4325B07E8400840023 /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE79CD4225B07E8400840023 /* UITableViewCell+Extension.swift */; };
 		CEB40579259F7B1A00FBDDB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB40578259F7B1A00FBDDB6 /* AppDelegate.swift */; };
 		CEB4057D259F7B1A00FBDDB6 /* DirectoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB4057C259F7B1A00FBDDB6 /* DirectoryViewController.swift */; };
 		CEB40582259F7B1B00FBDDB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEB40581259F7B1B00FBDDB6 /* Assets.xcassets */; };
@@ -27,6 +30,9 @@
 		CE63A570259FB2C900406FD4 /* FileManagerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerService.swift; sourceTree = "<group>"; };
 		CE63A573259FB74E00406FD4 /* Directory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Directory.swift; sourceTree = "<group>"; };
 		CE63A578259FB76600406FD4 /* DirectoryObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryObject.swift; sourceTree = "<group>"; };
+		CE79CD3B25B0734E00840023 /* ImageNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNames.swift; sourceTree = "<group>"; };
+		CE79CD3F25B07CDF00840023 /* ObjectType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectType.swift; sourceTree = "<group>"; };
+		CE79CD4225B07E8400840023 /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
 		CEB40575259F7B1A00FBDDB6 /* FileManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FileManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB40578259F7B1A00FBDDB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEB4057C259F7B1A00FBDDB6 /* DirectoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryViewController.swift; sourceTree = "<group>"; };
@@ -57,6 +63,8 @@
 				CE63A578259FB76600406FD4 /* DirectoryObject.swift */,
 				CE63A573259FB74E00406FD4 /* Directory.swift */,
 				CED842A225A09E1500C07428 /* File.swift */,
+				CE79CD3B25B0734E00840023 /* ImageNames.swift */,
+				CE79CD3F25B07CDF00840023 /* ObjectType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -130,6 +138,7 @@
 			children = (
 				CED842E725A18EB300C07428 /* UIViewController+Extension.swift */,
 				CED842AB25A0BBA100C07428 /* Directory+Extension.swift */,
+				CE79CD4225B07E8400840023 /* UITableViewCell+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -224,10 +233,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				CED842E825A18EB300C07428 /* UIViewController+Extension.swift in Sources */,
+				CE79CD4025B07CDF00840023 /* ObjectType.swift in Sources */,
 				CEB4057D259F7B1A00FBDDB6 /* DirectoryViewController.swift in Sources */,
 				CED842A325A09E1500C07428 /* File.swift in Sources */,
 				CE63A579259FB76600406FD4 /* DirectoryObject.swift in Sources */,
+				CE79CD3C25B0734E00840023 /* ImageNames.swift in Sources */,
 				CE63A574259FB74E00406FD4 /* Directory.swift in Sources */,
+				CE79CD4325B07E8400840023 /* UITableViewCell+Extension.swift in Sources */,
 				CEB40579259F7B1A00FBDDB6 /* AppDelegate.swift in Sources */,
 				CED842AC25A0BBA100C07428 /* Directory+Extension.swift in Sources */,
 				CE63A571259FB2C900406FD4 /* FileManagerService.swift in Sources */,

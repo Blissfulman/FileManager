@@ -19,8 +19,8 @@ struct Directory {
 
 extension Directory {
     
-    static func getDirectory(for directoryURL: URL? = nil) -> Directory? {
-                
+    static func getDirectory(for directoryURL: URL? = nil) throws -> Directory? {
+        
         guard let directoryURL = directoryURL ?? FileManagerService().getRootURL() else {
             return nil
         }

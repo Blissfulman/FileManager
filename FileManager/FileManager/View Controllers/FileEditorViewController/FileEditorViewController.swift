@@ -13,9 +13,20 @@ final class FileEditorViewController: UIViewController {
     @IBOutlet var textView: UITextView!
     
     // MARK: - Properties
-    var file: File!
+    private let file: File
     
-    private let fileManagerService = FileManagerService()
+    private let fileManagerService: FileManagerService
+    
+    // MARK: - Initializers
+    init(_ file: File, fileManagerService: FileManagerService) {
+        self.file = file
+        self.fileManagerService = fileManagerService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Lifecycle methods
     override func viewDidLoad() {

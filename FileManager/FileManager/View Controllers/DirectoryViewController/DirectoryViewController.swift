@@ -10,13 +10,14 @@ import UIKit
 final class DirectoryViewController: UITableViewController {
     
     // MARK: - Properties
-    private var directory: Directory?
+    private var directory: Directory
     
-    private let fileManagerService = FileManagerService()
+    private let fileManagerService: FileManagerService
     
     // MARK: - Initializers
-    init(_ directory: Directory? = nil) {
+    init(_ directory: Directory, fileManagerService: FileManagerService) {
         self.directory = directory
+        self.fileManagerService = fileManagerService
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -34,9 +35,9 @@ final class DirectoryViewController: UITableViewController {
     
     // MARK: - Actions
     @objc private func addDirectoryButtonTapped() {
-        showAlert(type: .directory) { [weak self] directoryName in
+        showAlert(type: .addDirectory) { [weak self] directoryName in
             
-            guard let url = self?.directory?.url else { return }
+            guard let url = self?.directory.url else { return }
             
             self?.fileManagerService.createDirectory(in: url, withName: directoryName)
             self?.updateDirectory()
@@ -45,8 +46,8 @@ final class DirectoryViewController: UITableViewController {
     }
     
     @objc private func addFileButtonTapped() {
-        showAlert(type: .file) { [weak self] fileName in
-            guard let url = self?.directory?.url else { return }
+        showAlert(type: .addFile) { [weak self] fileName in
+            guard let url = self?.directory.url else { return }
             
             self?.fileManagerService.writeFile(in: url, withName: fileName)
             self?.updateDirectory()
@@ -56,17 +57,17 @@ final class DirectoryViewController: UITableViewController {
     
     // MARK: - Setup UI
     private func setupUI() {
-        title = directory?.name
+        title = directory.name
         
         let addDirectoryBarButton = UIBarButtonItem(
-            image: UIImage(named: "addDirectory"),
+            image: UIImage(named: ImageNames.addDirectory.rawValue),
             style: .plain,
             target: self,
             action: #selector(addDirectoryButtonTapped)
         )
         
         let addFileBarButton = UIBarButtonItem(
-            image: UIImage(named: "addFile"),
+            image: UIImage(named: ImageNames.addFile.rawValue),
             style: .plain,
             target: self,
             action: #selector(addFileButtonTapped)
@@ -77,8 +78,12 @@ final class DirectoryViewController: UITableViewController {
     
     // MARK: - Private methods
     private func updateDirectory() {
-        directory = Directory.getDirectory(for: directory?.url)
-        directory = directory?.sortedObjects().filteredHiddenFiles()
+        do {
+            guard let directory = try Directory.getDirectory(for: directory.url) else { return }
+            self.directory = directory.sortedObjects().filteredHiddenFiles()
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }
 
@@ -86,28 +91,15 @@ final class DirectoryViewController: UITableViewController {
 extension DirectoryViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        directory?.objectCount ?? 0
+        directory.objectCount
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        var content = cell.defaultContentConfiguration()
-        
-        guard let directory = directory else { return UITableViewCell() }
-        
         let object = directory.objects[indexPath.row]
+        let objectType: ObjectType = object.isDirectory ? .directory : .file
         
-        content.image = object.isDirectory
-            ? UIImage(named: "directory")
-            : UIImage(named: "file")
-        
-        content.text = object.name
-        
-        cell.contentConfiguration = content
-        cell.accessoryType = .disclosureIndicator
-        
-        return cell
+        return UITableViewCell.getObjectCell(for: objectType, withTitle: object.name)
     }
 }
 
@@ -115,9 +107,7 @@ extension DirectoryViewController {
 extension DirectoryViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-        guard let directory = directory else { return }
-        
+                
         guard let url = directory.url else { return }
 
         let object = directory.objects[indexPath.row]
@@ -125,29 +115,34 @@ extension DirectoryViewController {
         if editingStyle == .delete {
             fileManagerService.deleteObject(in: url, withName: object.name)
             updateDirectory()
+//            tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .automatic)
+//            tableView.endUpdates()
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        guard let directory = directory else { return }
-        
+                
         let selectedObject = directory.objects[indexPath.row]
         
         // MARK: - Navigation
         if selectedObject.isDirectory {
-            let openingDirectory = Directory.getDirectory(for: selectedObject.url)
-            
-            let selectedDirectoryVC = DirectoryViewController(openingDirectory)
-            
-            navigationController?.pushViewController(selectedDirectoryVC, animated: true)
+            do {
+                guard let openingDirectory = try Directory.getDirectory(for: selectedObject.url) else { return }
+                
+                let selectedDirectoryVC = DirectoryViewController(openingDirectory,
+                                                                  fileManagerService: fileManagerService)
+                
+                navigationController?.pushViewController(selectedDirectoryVC, animated: true)
+            } catch {
+                print(error.localizedDescription)
+            }
         } else {
             let openingFile = File(name: selectedObject.name,
                                    content: fileManagerService.readFile(url: selectedObject.url))
             
-            let selectedFileVC = FileEditorViewController()
-            selectedFileVC.file = openingFile
+            let selectedFileVC = FileEditorViewController(openingFile,
+                                                          fileManagerService: fileManagerService)
             
             navigationController?.pushViewController(selectedFileVC, animated: true)
         }
