@@ -9,17 +9,18 @@ import Foundation
 
 struct FileManagerService {
     
+    private let fileManager = FileManager.default
+    
     // MARK: - Public methods
     func getRootURL() -> URL? {
-        guard let url = FileManager.default.urls(for: .documentDirectory,
-                                                 in: .userDomainMask).first else {
+        guard let url = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return nil
         }
         return url
     }
     
     func getDirectoryObjectsURLs(in directory: URL) -> [URL]? {
-        try? FileManager.default.contentsOfDirectory(
+        try? fileManager.contentsOfDirectory(
             at: directory,
             includingPropertiesForKeys: nil,
             options: []
@@ -29,7 +30,7 @@ struct FileManagerService {
     func readFile(url: URL) -> String {
         let filePath = url.relativePath
         
-        guard let fileContent = FileManager.default.contents(atPath: filePath),
+        guard let fileContent = fileManager.contents(atPath: filePath),
               let fileContentEncoded = String(bytes: fileContent, encoding: .utf8) else {
             return ""
         }
@@ -40,7 +41,7 @@ struct FileManagerService {
         let path = directory.appendingPathComponent(name)
 
         do {
-            try FileManager.default.createDirectory(
+            try fileManager.createDirectory(
                 at: path,
                 withIntermediateDirectories: true,
                 attributes: nil
@@ -55,14 +56,14 @@ struct FileManagerService {
         let path = directory.path + "/" + name
         
         let rawData: Data? = content.data(using: .utf8)
-        FileManager.default.createFile(atPath: path, contents: rawData, attributes: nil)
+        fileManager.createFile(atPath: path, contents: rawData, attributes: nil)
     }
     
     func deleteObject(in directory: URL, withName name: String) {
         let path = directory.appendingPathComponent(name)
         
         do {
-            try FileManager.default.removeItem(at: path)
+            try fileManager.removeItem(at: path)
         } catch {
             print(error.localizedDescription)
         }

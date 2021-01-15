@@ -7,14 +7,14 @@
 
 import UIKit
 
-enum AlertType {
-    case addDirectory
-    case addFile
-}
-
-extension UIViewController {
+enum Alert {
     
-    func showAlert(type: AlertType, completion: @escaping (String) -> Void) {
+    enum AlertType {
+        case addDirectory
+        case addFile
+    }
+    
+    static func showAlert(sender: UIViewController, type: AlertType, completion: @escaping (String) -> Void) {
         let alertTitle = type == .addDirectory ? "Directory name" : "File name"
         
         let alertController = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
@@ -30,6 +30,6 @@ extension UIViewController {
         alertController.addAction(createAction)
         alertController.addTextField { _ in }
         
-        present(alertController, animated: true)
+        sender.present(alertController, animated: true)
     }
 }

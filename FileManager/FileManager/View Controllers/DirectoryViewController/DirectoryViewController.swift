@@ -35,7 +35,7 @@ final class DirectoryViewController: UITableViewController {
     
     // MARK: - Actions
     @objc private func addDirectoryButtonTapped() {
-        showAlert(type: .addDirectory) { [weak self] directoryName in
+        Alert.showAlert(sender: self, type: .addDirectory) { [weak self] directoryName in
             
             guard let url = self?.directory.url else { return }
             
@@ -46,7 +46,7 @@ final class DirectoryViewController: UITableViewController {
     }
     
     @objc private func addFileButtonTapped() {
-        showAlert(type: .addFile) { [weak self] fileName in
+        Alert.showAlert(sender: self, type: .addFile) { [weak self] fileName in
             guard let url = self?.directory.url else { return }
             
             self?.fileManagerService.writeFile(in: url, withName: fileName)
